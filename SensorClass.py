@@ -1,6 +1,6 @@
 __author__ = 'stew'
 import time
-import os,sys
+import os,sys,signal
 import redis
 import socket,struct
 
@@ -47,6 +47,7 @@ class Sensor:
             s = sys.stdin.readline();
             while s != 'y\n' :
                 s = sys.stdin.readline()
+            os.kill(int(newpid), signal.SIGTERM)
 
     def initSensorDB(self):
         self.db.setnx(self.name+":config:port", self.port)
