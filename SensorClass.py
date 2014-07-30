@@ -18,10 +18,7 @@ class Sensor:
         self.initSensorDB()
 
     def analyseMessage(self, message=""):
-
-
         outputVars = dict()
-
         return outputVars
 
     def read(self):
@@ -53,6 +50,7 @@ class Sensor:
         self.db.setnx(self.name+":config:port", self.port)
         self.db.setnx(self.name+":config:host", self.host)
 
-sen = Sensor()
-sen.startAcquisition()
+# sen = Sensor()
+# sen.startAcquisition()
+# you can test the sensor udp with : echo -n “test data” | nc -4u -w1 <host> <udp port>
 
