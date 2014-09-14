@@ -3,15 +3,16 @@ import time
 import os,sys,signal
 import redis
 import socket,struct
+import SerialSensor
 
 class Sensor:
     """A generic sensor class"""
 
-    def __init__(self, name="GenericSensor", host="127.0.0.1", port=50000):
-        self.db = redis.StrictRedis(host='localhost', port=6379, db=0)
-        self.name = name
-        self.host = host
-        self.port = port
+    def __init__(self, sensorName="GenericSensor", hostname="127.0.0.1", portnum=6379, dbnum=0):
+        self.db = redis.StrictRedis(host=hostname, port=portnum, db=dbnum)
+        self.name = sensorName
+        self.host = "127.0.0.1"
+        self.port = 50000
         self.lastMessageTime = time.time()
         self.lastMessage = ""
 
@@ -50,7 +51,4 @@ class Sensor:
         self.db.setnx(self.name+":config:port", self.port)
         self.db.setnx(self.name+":config:host", self.host)
 
-# sen = Sensor()
-# sen.startAcquisition()
-# you can test the sensor udp with : echo -n “test data” | nc -4u -w1 <host> <udp port>
-
+# you can test the sensor udp with : echo -n "test data" | nc -4u -w1 <host> <udp port>
